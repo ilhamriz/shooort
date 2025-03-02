@@ -49,6 +49,8 @@ const ListItems = () => {
     }
   };
 
+  if (!links.length) return;
+
   return !isLoadInfoData ? (
     <div className="w-full max-w-[750px] flex flex-col gap-4">
       {links.length > 0
