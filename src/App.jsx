@@ -17,14 +17,6 @@ function App() {
 
         <Forms />
         <ListItems />
-
-        {/* {shortenedLinks.length > 0 ? (
-          <Table
-            shortenedLinks={shortenedLinks}
-            highlight={highlight}
-            // urlAPI={urlAPI}
-          />
-        ) : null} */}
       </div>
     </div>
   );

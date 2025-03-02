@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { DataContext } from "../providers/DataProvider";
 import moment from "moment";
 import Action from "./Action";
 import { IconCalendar, IconCopy, IconDelete } from "./Icons";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { ConfirmationContext } from "@/providers/ConfirmationProvider";
+import { archiveLink } from "@/api/api";
 
 const ListItems = () => {
-  const { API_URL, API_KEY, links } = useContext(DataContext);
+  const { links, updateLinks } = useContext(DataContext);
   const { setSnackbar } = useContext(SnackbarContext);
   const { setConfirmation } = useContext(ConfirmationContext);
 
@@ -16,22 +17,35 @@ const ListItems = () => {
     setSnackbar("successfully copied");
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = (alias) => {
     setConfirmation({
       open: true,
       title: "Delete link?",
       caption:
         "This action cannot be undone. This will permanently delete your link.",
       buttonText: ["Cancel", "Delete Link"],
-      confirmCallback: () => deleteData(),
+      confirmCallback: () => deleteData(alias),
     });
   };
 
-  const deleteData = () => {
-    console.log("deleted");
+  const deleteData = async (alias) => {
     setConfirmation((state) => ({ ...state, open: false }));
-    setSnackbar("successfully delete link");
-    // TODO: API DELETE
+
+    try {
+      const payload = {
+        data: {
+          domain: "tinyurl.com",
+          alias: alias,
+        },
+      };
+      await archiveLink(payload);
+      const newLinks = links.filter((link) => link?.alias !== alias);
+      updateLinks(newLinks);
+      setSnackbar("successfully delete link");
+    } catch (error) {
+      setSnackbar(error?.data?.errors[0], "error");
+      console.error("Error delete URL:", error);
+    }
   };
 
   return (
@@ -87,7 +101,7 @@ const ListItems = () => {
                   name="Delete"
                   icon={<IconDelete />}
                   intent="secondary"
-                  onClick={() => confirmDelete()}
+                  onClick={() => confirmDelete(link?.alias)}
                 />
               </div>
             </div>

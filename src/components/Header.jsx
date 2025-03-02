@@ -12,6 +12,7 @@ const Header = () => {
         id="airplane-mode"
         checked={theme === "dark"}
         onCheckedChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        className="cursor-pointer"
       />
       <IconMoon />
     </div>

@@ -16,7 +16,12 @@ const DataProvider = ({ children }) => {
     }
   }, []);
 
-  const contextValue = { API_URL, API_KEY, links, setLinks };
+  const updateLinks = (data) => {
+    setLinks(data);
+    localStorage.setItem("links", JSON.stringify(data));
+  };
+
+  const contextValue = { API_URL, API_KEY, links, updateLinks };
 
   return (
     <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>

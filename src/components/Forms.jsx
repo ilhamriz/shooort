@@ -1,42 +1,34 @@
-import axios from "axios";
 import { useContext, useState } from "react";
 import { IconLink } from "./Icons";
 import Button from "./Button";
 import { DataContext } from "../providers/DataProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
+import { createLink } from "@/api/api";
 
 const Forms = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
-  const API_KEY = import.meta.env.VITE_API_KEY;
-  const { links, setLinks } = useContext(DataContext);
+  const { links, updateLinks } = useContext(DataContext);
   const { setSnackbar } = useContext(SnackbarContext);
   const [loading, setLoading] = useState(false);
-  const [link, setLink] = useState("");
+  const [inputLink, setInputLink] = useState("");
 
   const shortenLink = async (event) => {
     event.preventDefault();
     setLoading(true);
 
     try {
-      const payload = { url: link };
-      const response = await axios.post(`${API_URL}/create`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${API_KEY}`,
-        },
-      });
+      const payload = { data: { url: inputLink } };
+      const response = await createLink(payload);
 
       const object = {
-        ...response?.data?.data,
+        ...response?.data,
         hit: 0,
       };
       const newData = [...links, object];
 
-      setLinks(newData);
+      updateLinks(newData);
       setLoading(false);
-      setLink("");
+      setInputLink("");
       setSnackbar("successfully shorten your link");
-      localStorage.setItem("links", JSON.stringify(newData));
     } catch (error) {
       setLoading(false);
       setSnackbar(error?.response?.data?.errors[0], "error");
@@ -45,7 +37,7 @@ const Forms = () => {
   };
 
   const handleInput = (event) => {
-    setLink(event.target.value);
+    setInputLink(event.target.value);
     event.preventDefault();
   };
 
@@ -60,7 +52,7 @@ const Forms = () => {
         </div>
         <input
           type="url"
-          value={link}
+          value={inputLink}
           onChange={handleInput}
           className="w-full text-text-primary text-sm rounded-lg p-2 ps-3 outline-none"
           placeholder="Paste a link to shorten"
@@ -69,8 +61,8 @@ const Forms = () => {
       </div>
       <Button
         loading={loading}
-        disabled={!link}
-        intent={!link ? "primary_disable" : "primary"}
+        disabled={!inputLink || loading}
+        intent={!inputLink ? "primary_disable" : "primary"}
         className="sm:w-[154px]"
       >
         Shorten Link
