@@ -9,6 +9,7 @@ const DataProvider = ({ children }) => {
   const API_URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [links, setLinks] = useState([]);
+  const [isLoadInfoData, setIsLoadInfoData] = useState(true);
 
   useEffect(() => {
     const localData = localStorage.getItem("links");
@@ -24,6 +25,7 @@ const DataProvider = ({ children }) => {
           return val.data;
         });
         updateLinks(newData);
+        setIsLoadInfoData(false);
       });
     }
   }, []);
@@ -33,7 +35,7 @@ const DataProvider = ({ children }) => {
     localStorage.setItem("links", JSON.stringify(data));
   };
 
-  const contextValue = { API_URL, API_KEY, links, updateLinks };
+  const contextValue = { API_URL, API_KEY, links, updateLinks, isLoadInfoData };
 
   return (
     <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>

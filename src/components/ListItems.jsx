@@ -6,9 +6,10 @@ import { IconCalendar, IconClick, IconCopy, IconDelete } from "./Icons";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { ConfirmationContext } from "@/providers/ConfirmationProvider";
 import { archiveLink } from "@/api/api";
+import { Spinner } from "@radix-ui/themes";
 
 const ListItems = () => {
-  const { links, updateLinks } = useContext(DataContext);
+  const { links, updateLinks, isLoadInfoData } = useContext(DataContext);
   const { setSnackbar } = useContext(SnackbarContext);
   const { setConfirmation } = useContext(ConfirmationContext);
 
@@ -48,7 +49,7 @@ const ListItems = () => {
     }
   };
 
-  return (
+  return !isLoadInfoData ? (
     <div className="w-full max-w-[750px] flex flex-col gap-4">
       {links.length > 0
         ? links.map((link) => (
@@ -115,6 +116,10 @@ const ListItems = () => {
             </div>
           ))
         : null}
+    </div>
+  ) : (
+    <div className="w-full flex justify-center">
+      <Spinner size="3" />
     </div>
   );
 };
