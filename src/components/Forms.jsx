@@ -23,7 +23,7 @@ const Forms = () => {
         ...response?.data,
         hits: 0,
       };
-      const newData = [...links, object];
+      const newData = [object, ...links];
 
       updateLinks(newData);
       setLoading(false);
