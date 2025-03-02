@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { DataContext } from "../providers/DataProvider";
 import moment from "moment";
 import Action from "./Action";
-import { IconCalendar, IconCopy, IconDelete } from "./Icons";
+import { IconCalendar, IconClick, IconCopy, IconDelete } from "./Icons";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { ConfirmationContext } from "@/providers/ConfirmationProvider";
 import { archiveLink } from "@/api/api";
@@ -81,13 +81,21 @@ const ListItems = () => {
                   >
                     {link?.url}
                   </a>
-                  <div className="mt-6 flex items-center gap-1 text-xs">
-                    <div>
-                      <IconCalendar />
+                  <div className="mt-6 flex items-center gap-3 text-xs">
+                    <div className="flex items-center gap-1">
+                      <div>
+                        <IconCalendar />
+                      </div>
+                      <span>
+                        {moment(link?.created_at).format("MMM DD, YYYY")}
+                      </span>
                     </div>
-                    <span>
-                      {moment(link?.created_at).format("MMM DD, YYYY")}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <div>
+                        <IconClick />
+                      </div>
+                      <span>{link?.hits}</span>
+                    </div>
                   </div>
                 </div>
               </div>

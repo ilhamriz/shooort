@@ -21,7 +21,7 @@ const Forms = () => {
 
       const object = {
         ...response?.data,
-        hit: 0,
+        hits: 0,
       };
       const newData = [...links, object];
 
