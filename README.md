@@ -2,24 +2,28 @@
 
 Shooort is a simple and lightweight URL shortener built with Vite+React. It provides a fast and efficient way to shorten long URLs with a clean user interface.
 
-## 🚀 Live Demo
+
+## Live Demo
 
 Check out the live version here: [Shooort](https://shooort-ecru.vercel.app/)
 
-## 📌 Features
 
-- ✨ Minimalist and clean UI
-- ⚡ Fast and reliable URL shortening
-- 🔗 Instant redirection to original URLs
-- 🌍 Hosted on Vercel for seamless performance
+## Features
 
-## 🛠️ Tech Stack
+- Minimalist and clean UI
+- Fast and reliable URL shortening
+- Instant redirection to original URLs
+- Hosted on Vercel for seamless performance
+
+
+## Tech Stack
 
 - **Frontend**: Vite+React
 - **Styling**: Tailwind CSS
 - **Deployment**: Vercel
 
-## 📥 Installation & Setup
+
+## Installation & Setup
 
 To set up the project locally, follow these steps:
 
@@ -45,14 +49,16 @@ yarn dev
 
 Then open [http://localhost:5173/](http://localhost:5173/) in your browser.
 
-## 📄 Usage
+
+## Usage
 
 1. Enter a long URL in the input field.
 2. Click the "Shorten" button.
 3. Copy and use the generated short link.
 4. The short link will redirect to the original URL.
 
-## 📌 Deployment
+
+## Deployment
 
 Shooort is deployed on **Vercel**. If you want to deploy your own instance:
 
@@ -61,11 +67,13 @@ Shooort is deployed on **Vercel**. If you want to deploy your own instance:
 3. Connect the repository to [Vercel](https://vercel.com/).
 4. Deploy the project with a single click.
 
-## 🤝 Contributing
+
+## Contributing
 
 Contributions are welcome! If you find a bug or have a feature request, feel free to open an issue or submit a pull request.
 
-## 📬 Contact
+
+## Contact
 
 If you have any questions, feel free to reach out:
 
